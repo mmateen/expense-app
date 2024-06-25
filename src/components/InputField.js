@@ -3,13 +3,13 @@ import { Input, Typography } from "@material-tailwind/react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye } from '@fortawesome/free-regular-svg-icons';
 
-const InputField = ({behaviour, ...props}) => {
+const InputField = ({behaviour, name='', value='', onChange, ...props}) => {
     return (
         <div>
             {
                 behaviour === "password" ?
                 <div>
-                    <Input color="indigo" label="Password" type="password" icon={<FontAwesomeIcon icon={faEye} />}/>
+                    <Input label="Password" type="password" icon={<FontAwesomeIcon icon={faEye} />} name={name} value={value} onChange={onChange}/>
                     <Typography
                         variant="small"
                         color="gray"
@@ -31,7 +31,7 @@ const InputField = ({behaviour, ...props}) => {
                     </Typography>
                 </div>
                 :
-                <Input {...props}/>
+                <Input {...props} name={name} value={value} onChange={onChange}/>
             }
             
         </div>
