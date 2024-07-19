@@ -48,7 +48,7 @@ const Login = () => {
                     throw new Error(data.message);
                 }
                 if (data.message === 'ok') {
-                    navigate('/dashboard'); // Redirect to dashboard after successful login
+                    // navigate('/dashboard'); // Redirect to dashboard after successful login
                 }
             }).catch((error) => {
                 setErrorMessage(error.message);

@@ -15,6 +15,8 @@ const Signup = () => {
         email: '',
         password: ''
     })
+    const [isButtonDisabled, setIsButtonDisabled] = useState(false);
+    const [errorMessage, setErrorMessage] = useState('');
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const userDetails = useSelector((state) => state.authData.userDetails);
@@ -24,25 +26,32 @@ const Signup = () => {
             ...formData,
             [name]: value
         })
+        setIsButtonDisabled(false);
+        setErrorMessage('');
     }
     const handleSubmit = () => {
+        setIsButtonDisabled(true);
         dispatch(signup(formData));
     }
 
     useEffect(() => {
         if (Object.keys(userDetails).length !== 0) {
-            console.log('object')
             fetch(`${baseUrl}/register`, {
                 method: "POST",
                 headers: {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify(userDetails)
-            }).then((res) => res.json()).then((data)=>{
-                if(data.message === 'ok') {
-                    // navigate('/login');
+            }).then(async (res) => {
+                const data = await res.json();
+                if (!res.ok) {
+                    throw new Error(data.message);
+                }
+                if (data.message === 'ok') {
+                    navigate('/login'); 
                 }
             }).catch((error) => {
+                setErrorMessage(error.message);
                 console.error('Error:', error);
             });
         }
@@ -76,8 +85,9 @@ const Signup = () => {
                     }
                 />
             </div>
+            {errorMessage && <div className="text-red-500 text-center mt-4">{errorMessage}</div>}
             <LargeBtn text="Sign Up" variant="filled" fullWidth
-                        size="lg" className="rounded-[12px] bg-[#7F3DFF] my-4 py-4" disabled={!isFormValid()} onClick={handleSubmit}/>
+                        size="lg" className="rounded-[12px] bg-[#7F3DFF] my-4 py-4" disabled={!isFormValid() || isButtonDisabled} onClick={handleSubmit}/>
             <Typography variant="paragraph" className="text-center">Already have an account? <Link to='/login' className="text-[#8B50FF] underline font-medium">Login</Link></Typography>
         </div>
     )
