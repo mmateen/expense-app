@@ -2,6 +2,7 @@ import './App.css';
 import { BrowserRouter as Router, Route, Routes} from 'react-router-dom';
 import OnBoarding from './pages/OnBoarding';
 import Signup from './pages/Signup';
+import Login from './pages/Login';
 import 'tailwindcss/tailwind.css';
 
 function App() {
@@ -17,6 +18,7 @@ function App() {
 							<Routes>
 								<Route path='/' Component={OnBoarding}/>
 								<Route path='/signup' Component={Signup}/>
+								<Route path='/login' Component={Login}/>
 							</Routes>
 						</Router>
 					</div>
