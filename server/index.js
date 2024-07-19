@@ -5,8 +5,12 @@ const app = express();
 const cors = require('cors');
 const Auth = require('./models/auth.model');
 
+const baseUrl = process.env.CLIENT_ORIGIN_URL === 'production' 
+? 'https://expense-app-liart.vercel.app/'
+: 'http://localhost:3000';
+
 app.use(cors({
-    origin: process.env.CLIENT_ORIGIN_URL
+    origin: baseUrl
 }));
 
 // Middleware
