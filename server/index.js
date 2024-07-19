@@ -8,7 +8,7 @@ const Auth = require('./models/auth.model');
 const baseUrl = process.env.CLIENT_ORIGIN_URL === 'production' 
 ? 'https://expense-app-liart.vercel.app/'
 : 'http://localhost:3000';
-console.log(baseUrl, process.env.CLIENT_ORIGIN_URL);
+
 app.use(cors({
     origin: baseUrl
 }));
@@ -18,6 +18,7 @@ app.use(express.json());
 
 // Root route
 app.get('/', (req, res) => {
+    console.log(baseUrl, process.env.CLIENT_ORIGIN_URL);
     res.send('Hello, World!');
 });
 
