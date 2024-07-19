@@ -26,7 +26,6 @@ const PORT = process.env.PORT || 4000;
 //apis
 app.post('/register', async(req,res)=>{
     console.log('Received a registration requests');
-    console.log('Connecting to MongoDB...', process.env.MONGODB_URI);
     try {
         const { name, email, password } = req.body;
         let existingUser = await Auth.findOne({email});
@@ -43,7 +42,7 @@ app.post('/register', async(req,res)=>{
         res.status(500).json({message: err.message});
     }
 })
-
+console.log('connecting to db');
 mongoose.connect(process.env.MONGODB_URI)
 .then(() => {
     console.log('Connected!')
