@@ -43,14 +43,14 @@ app.post('/register', async(req,res)=>{
     }
 })
 console.log('connecting to db');
-mongoose.connect(process.env.MONGODB_URI)
+mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
 .then(() => {
     console.log('Connected!')
     app.listen(PORT, () => {
         console.log(`Server running on PORT ${PORT}`);
     })
-}).catch(()=> {
-    console.log('failed')
+}).catch((err)=> {
+    console.log('failed', err.message)
 })
 
 module.exports = app;
