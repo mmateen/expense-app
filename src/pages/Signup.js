@@ -30,7 +30,10 @@ const Signup = () => {
 
     useEffect(() => {
         if (Object.keys(userDetails).length !== 0) {
-            fetch('http://localhost:4000/register', {
+            const baseUrl = process.env.NODE_ENV === 'production' 
+            ? 'https://expense-app-server-seven.vercel.app'
+            : 'http://localhost:4000';
+            fetch(`${baseUrl}/register`, {
                 method: "POST",
                 headers: {
                     'Content-Type': 'application/json'

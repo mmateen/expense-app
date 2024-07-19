@@ -20,7 +20,6 @@ const AuthSchema = mongoose.Schema({
 
 AuthSchema.pre('save', async function(next) {
     try {
-        console.log('object', this.password)
         if(!this.isModified('password')) {
             return next();
         }
