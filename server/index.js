@@ -25,7 +25,7 @@ app.get('/', (req, res) => {
 const PORT = process.env.PORT || 4000;
 //apis
 app.post('/register', async(req,res)=>{
-    console.log('Received a registration request');
+    console.log('Received a registration requests');
     console.log('Connecting to MongoDB...', process.env.MONGODB_URI);
     try {
         const { name, email, password } = req.body;
