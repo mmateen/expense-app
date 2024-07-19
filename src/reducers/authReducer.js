@@ -1,5 +1,6 @@
 const authInitalState = {
-    userDetails: {}
+    userDetails: {},
+    loginDetails: {}
 }
 
 const authReducer = (state = authInitalState, action) => {
@@ -8,6 +9,11 @@ const authReducer = (state = authInitalState, action) => {
             return {
                 ...state,
                 userDetails: action.payload
+            }
+        case 'LOGIN':
+            return {
+                ...state,
+                loginDetails: action.payload
             }
         default: 
             return state

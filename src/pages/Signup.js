@@ -7,6 +7,7 @@ import { useDispatch } from "react-redux";
 import { signup } from "../actions/expanseAction";
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import baseUrl from '../common/common'
 
 const Signup = () => {
     const [formData, setFormData] = useState({
@@ -30,9 +31,7 @@ const Signup = () => {
 
     useEffect(() => {
         if (Object.keys(userDetails).length !== 0) {
-            const baseUrl = process.env.NODE_ENV === 'production' 
-            ? 'https://expense-app-server-seven.vercel.app'
-            : 'http://localhost:4000';
+            console.log('object')
             fetch(`${baseUrl}/register`, {
                 method: "POST",
                 headers: {
@@ -41,7 +40,7 @@ const Signup = () => {
                 body: JSON.stringify(userDetails)
             }).then((res) => res.json()).then((data)=>{
                 if(data.message === 'ok') {
-                    navigate('/login');
+                    // navigate('/login');
                 }
             }).catch((error) => {
                 console.error('Error:', error);

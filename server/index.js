@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const app = express();
 const cors = require('cors');
 const Auth = require('./models/auth.model');
+const bcrypt = require('bcryptjs');
 
 const baseUrl = process.env.CLIENT_ORIGIN_URL === 'production' 
 ? 'https://expense-app-liart.vercel.app'
@@ -25,7 +26,6 @@ app.get('/', (req, res) => {
 const PORT = process.env.PORT || 4000;
 //apis
 app.post('/register', async(req,res)=>{
-    console.log('Received a registration requests');
     try {
         const { name, email, password } = req.body;
         let existingUser = await Auth.findOne({email});
@@ -42,8 +42,28 @@ app.post('/register', async(req,res)=>{
         res.status(500).json({message: err.message});
     }
 })
-console.log('connecting to db');
-mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
+
+app.post('/login', async(req,res)=>{
+    try {
+        const { email, password } = req.body;
+        if (!email || !password) {
+            return res.status(400).json({ message: 'email, and password are required' });
+        }
+        let user = await Auth.findOne({email});
+        if (!user) {
+            return res.status(400).json({ message: 'User not found' });
+        }
+        const isMatch = await bcrypt.compare(password, user.password);
+        if (!isMatch) {
+            return res.status(400).json({ message: 'Invalid credentials' });
+        }
+        res.status(200).json({ message: 'Login successful', name: user.name });
+    } catch (err) {
+        res.status(500).json({message: err.message});
+    }
+})
+
+mongoose.connect(process.env.MONGODB_URI)
 .then(() => {
     console.log('Connected!')
     app.listen(PORT, () => {
