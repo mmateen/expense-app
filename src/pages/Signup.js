@@ -30,6 +30,7 @@ const Signup = () => {
 
     useEffect(() => {
         if (Object.keys(userDetails).length !== 0) {
+            console.log(process.env.NODE_ENV);
             const baseUrl = process.env.NODE_ENV === 'production' 
             ? 'https://expense-app-server-seven.vercel.app'
             : 'http://localhost:4000';
