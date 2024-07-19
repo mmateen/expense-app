@@ -13,7 +13,7 @@ function App() {
 			<div class="wave"></div>
 			<div className="app-container p-5 h-screen">
 				<div className="w-full max-w-lg mx-auto shadow-xs flex justify-center items-center p-5 h-fit absolute inset-y-1/2 left-2/4 -translate-x-[50%] -translate-y-[50%] bg-white rounded-lg">
-					<div className='h-full w-full'>
+					<div className='h-fit w-full'>
 						<Router>
 							<Routes>
 								<Route path='/' Component={OnBoarding}/>
