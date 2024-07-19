@@ -18,7 +18,7 @@ app.use(express.json());
 
 // Root route
 app.get('/', (req, res) => {
-    console.log(baseUrl, process.env.CLIENT_ORIGIN_URL);
+     console.log(baseUrl, process.env.CLIENT_ORIGIN_URL);
     res.send('Hello, World!');
 });
 
